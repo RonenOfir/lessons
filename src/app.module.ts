@@ -11,8 +11,9 @@ import { User } from './users/user.entity';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      username: 'lightquo_root',
-      password: 'AlmondMilk#123',
+      port: 3306,
+      username: 'lightquote_nest_user',
+      password: 'Smile!123',
       database: 'lightquote_nest',
       entities: [User],
       synchronize: true,
