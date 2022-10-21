@@ -6,10 +6,10 @@ import { User } from './user.entity';
 export class UsersController {
 
     constructor(private service: UsersService) { }
-
+    
     @Get()
     getUsers() {
-        return this.service.getUsers();
+        return this.service.getUsers(); 
     }
 
     @Get(':id')
