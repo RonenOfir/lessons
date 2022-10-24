@@ -13,7 +13,7 @@ import { User } from './users/user.entity';
       port: 3306,
       username: 'lightquote_nest_user',
       password: 'Smile!123',
-      database: 'nest',
+      database: 'lightquote_nest',
       entities: [User],
       synchronize: true,
     }),
