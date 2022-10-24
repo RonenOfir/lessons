@@ -30,6 +30,7 @@
     "fs": "^0.0.1-security",
     "mongoose": "^6.5.3",
     "mysql2": "^2.3.3",
+    "node-poppler": "^6.0.1",
     "pdf-to-text": "^0.0.7",
     "pdfinfo": "^0.0.3",
     "reflect-metadata": "^0.1.13",
