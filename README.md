@@ -21,9 +21,12 @@ TEST!!
 --------------------------
 http://185.241.7.183:8080/
 http://185.241.7.183:8080/pdf/1666593279.pdf
-http://185.241.7.183:8080/pdresponsetextf/1666597910824.txt
+http://185.241.7.183:8080/pdfresponsetextf/1666622886755.txt
 
-http://localhost:3000/pdf/1666243161.pdf
-http://localhost:3000/responsetext/1666597910824.txt
+http://localhost:3000/promise/1666243161.pdf
+
+http://localhost:3000/responsetext/1666684015643.txt
 
 
+
+find /home/lightquote/www/lessons/uploads -type d -exec chmod 777 {} \;

@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { resolve } from 'path';
 import { AppService } from './app.service';
 const { Poppler } = require("node-poppler");
 const fs = require('fs');
@@ -12,33 +13,43 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('responsetext/:fileName')
-  getTextFromFile(@Param('fileName') fileName: string): string {
-    let lorem = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName, "UTF-8");
-    return lorem;
-  }
-
-  @Get('pdf/:url')
-  downloadPdf(@Param('url') url: string): any {
+  @Get('promise/:url')
+  promisePdf(@Param('url') url: string): Promise<any> {
     url = 'https://lightquote.net/app/trans-quote/uploads/' + url;
     
     const https = require("https");
-    const unix = String(Date.now());
-    const fileName = "uploads" + "\\" + String(unix) + ".pdf";
+    const unixts = String(Date.now());
+    const fileName = "uploads" + "\\" + String(unixts) + ".pdf";
 
     let idx = fileName.indexOf(".");
     const destFIneName = fileName.substring(0,idx) + ".txt";
     const file = fs.createWriteStream(fileName);
 
-    https.get(url, response => {
-      var stream = response.pipe(file);
-      stream.on("finish", function() {
-        pdfToText(fileName, destFIneName);
+    const myPromise = new Promise((resolve, reject) => {
+      https.get(url, response => {
+        var stream = response.pipe(file);
+        stream.on("finish", function() {
+          pdfToText(fileName, destFIneName);
+          resolve(unixts + ".txt");
+        });
       });
+
     });
+          
+    return myPromise.then((data)=>{
+      // success
+      return data;
+    }, () =>{
+      //fail
+      console.log('pdf-to-text promise failed')
+    })
 
-    return unix + ".txt";
+  }
 
+  @Get('responsetext/:fileName')
+  getTextFromFile(@Param('fileName') fileName: string): string {
+    let stream = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName, "UTF-8");
+    return stream;
   }
   
 }
