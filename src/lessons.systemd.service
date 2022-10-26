@@ -1,0 +1,67 @@
+[Unit]
+Description=Nest.js Application (My API) - pdftotext 
+After=syslog.target network.target
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/lessons/dist
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node main.js
+Restart=always
+[Install]
+WantedBy=multi-user.target
+
+
+
+sodo vi /lib/systemd/system/lessons.service
+
+systemctl daemon-reload
+systemctl start lessons 
+systemctl enable lessons 
+systemctl status lessons  (should be running) 
+
+check if its running: 
+
+ss -antpl | grep 3000
+
+
+confix nginx:
+
+sudo vi /etc/nginx/conf.d/lessons.conf
+
+
+upstream backend {
+   server localhost:3000;
+   keepalive 32;
+}
+server {
+   listen 8080;
+   server_name helloworld.example.com;
+   location / {
+       client_max_body_size 50M;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_http_version 1.1;
+       proxy_pass http://backend;
+   }
+}
+
+
+check: 
+
+nginx -t
+
+systemctl restart nginx
+
+
+----------------------------------------------------------------
+At this point you should see the api on your browser:
+
+http://185.241.7.183:8080/
+http://185.241.7.183:8080/test
+
+
+
+
+
+
+
