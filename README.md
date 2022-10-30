@@ -28,6 +28,9 @@ http://localhost:3000/responsetext/1666684015643.txt
 
 sudo lsof -i :3000
 
+http://localhost:3000/pdf/1666243161.pdf
+http://localhost:3000/text/1667142974596.txt 
+
 
 
 

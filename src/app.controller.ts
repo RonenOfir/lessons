@@ -51,7 +51,7 @@ export class AppController {
 
   }
 
-  @Get('responsetext/:fileName')
+  @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
     let stream = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName, "UTF-8");
     return stream;
