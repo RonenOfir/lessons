@@ -18,7 +18,7 @@ export class AppController {
     return 'This Is The New Test';
   }
 
-  @Get('promise/:url')
+  @Get('pdf/:url')
   promisePdf(@Param('url') url: string): Promise<any> {
     url = 'https://lightquote.net/app/trans-quote/uploads/' + url;
     
