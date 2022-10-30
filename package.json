@@ -30,13 +30,15 @@
     "fs": "^0.0.1-security",
     "mongoose": "^6.5.3",
     "mysql2": "^2.3.3",
+    "nest-winston": "^1.8.0",
     "node-poppler": "^6.0.1",
     "pdf-to-text": "^0.0.7",
     "pdfinfo": "^0.0.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.8"
+    "typeorm": "^0.3.8",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
