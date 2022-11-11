@@ -20,16 +20,29 @@ export class AppController {
 
   @Get('convert/:fileName')
   convert(@Param('fileName') fileName: string): any {
+    const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
     const pdf = `tmp/${fileName}.pdf`;
     const targetTextFile = `uploads/${fileName}.txt`;
-    pdfToText(pdf, targetTextFile);
-    return 'Done';
+    let res = 0;
+    if (fs.existsSync(pdf)) {
+      res = 1;
+      pdfToText(pdf, targetTextFile);
+    } else {
+      res = 0;
+    }
+        
+    return res;
   }
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    let stream = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName + ".txt", "UTF-8");
-    return stream;
+    const path = '.\\' + 'uploads' + '\\' + fileName + ".txt";
+    if (fs.existsSync(path)) {
+      let stream = fs.readFileSync(path, "UTF-8");
+      return stream;
+    } else {
+      return 'file-not-exists';
+    }
   }
   
 }

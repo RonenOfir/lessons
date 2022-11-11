@@ -5,6 +5,9 @@ Lessons nest.js project
 cd..
 cd /root/lessons
 
+pdf files location:
+/home/lightquote/www/app/trans-quote/uploads
+
 git pull 
 
 nest build 
