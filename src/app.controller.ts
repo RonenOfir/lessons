@@ -21,13 +21,14 @@ export class AppController {
   @Get('convert/:fileName')
   convert(@Param('fileName') fileName: string): any {
     const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
-    // const localPdf = `tmp/${fileName}.pdf`;
-    // const targetTextFile = `uploads/${fileName}.txt`;
     const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
+    // const serverPdfLocation = `tmp/${fileName}.pdf`;
+    // const targetTextFile = `convertions/${fileName}.txt`;
+    
     let res = 0;
     if (fs.existsSync(serverPdfLocation)) {
       res = 1;
-      pdfToText(serverPdfLocation, targetTextFile);
+      convertToText(serverPdfLocation, targetTextFile);
     } else {
       res = 0;
     }
@@ -37,7 +38,7 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    // const path = '.\\' + 'convertions' + '\\' + fileName + ".txt";
+    // const path = `convertions/${fileName}.txt`;
     const path = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
@@ -49,18 +50,13 @@ export class AppController {
   
 }
 
-function pdfToText(file: string, targetTextFile: string){
+async function convertToText(file: string, targetTextFile: string){
   const poppler = new Poppler();
   const options = {
     firstPageToConvert: 1,
     lastPageToConvert: 1,
   };
   
-  poppler.pdfToText(file, targetTextFile, options).then((res) => {
-    fs.readFile(targetTextFile, 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  });
+  const res = await poppler.pdfToText(file, targetTextFile, options);
+  console.log('pdftoText Done');
 }

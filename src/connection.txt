@@ -6,3 +6,7 @@ database: 'lightquote_nest',
       password: '4651351',
       database: 'nest',
       
+
+        username:  'nest', // 'lightquote_nest_user',
+      password:  '4651351', //'Smile!123'
+      database: 'nest', // 'lightquote_nest',

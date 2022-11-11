@@ -63,7 +63,7 @@ http://185.241.7.183:8080/test
 
 
 
-rm -rf dist 
+
 
 https://github.com/RonenOfir/lessons.git
 cd lessons &&\npm install 
@@ -71,9 +71,16 @@ nest build
 
 mkdir –m777 uploads 
 
-
+How to deploy changes 
+----------------------
+git pull 
+rm -rf dist 
+nest build 
 systemctl daemon-reload
+systemctl stop lessons 
 systemctl start lessons 
+
+
 systemctl enable lessons 
 systemctl status lessons  (should be running) 
 
