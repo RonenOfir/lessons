@@ -13,9 +13,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('test')
+  @Get('test2')
   getTest(): string {
-    return 'This Is The New Test';
+    return 'This Is The New Test2';
   }
 
   @Get('convert/:fileName')
@@ -37,7 +37,8 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    const path = '.\\' + 'convertions' + '\\' + fileName + ".txt";
+    // const path = '.\\' + 'convertions' + '\\' + fileName + ".txt";
+    const path = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
       return stream;
