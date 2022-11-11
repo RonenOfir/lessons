@@ -20,31 +20,29 @@ export class AppController {
 
   @Get('convert/:fileName')
   convert(@Param('fileName') fileName: string): any {
-    let url = 'path-to-uploads/' + fileName;
-    let fname = 'tmp/shiran.pdf';
-    let idx = fname.indexOf(".");
-    const destFileName = fname.substring(0, idx) + ".txt";
-    pdfToText(fname, destFileName);
+    const pdf = `tmp/${fileName}.pdf`;
+    const targetTextFile = `uploads/${fileName}.txt`;
+    pdfToText(pdf, targetTextFile);
     return 'Done';
   }
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    let stream = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName, "UTF-8");
+    let stream = fs.readFileSync('.\\' + 'uploads' + '\\' + fileName + ".txt", "UTF-8");
     return stream;
   }
   
 }
 
-function pdfToText(file: string, destFileName: string){
+function pdfToText(file: string, targetTextFile: string){
   const poppler = new Poppler();
   const options = {
     firstPageToConvert: 1,
     lastPageToConvert: 1,
   };
   
-  poppler.pdfToText(file, destFileName, options).then((res) => {
-    fs.readFile(destFileName, 'utf8', (err, data) => {
+  poppler.pdfToText(file, targetTextFile, options).then((res) => {
+    fs.readFile(targetTextFile, 'utf8', (err, data) => {
       if (err) {
         console.error(err);
       }

@@ -17,13 +17,13 @@ service nginx restart
 TEST!!
 --------------------------
 http://185.241.7.183:8080/
-http://185.241.7.183:8080/promise/1666593279.pdf
-http://185.241.7.183:8080/pdfresponsetextf/1666625353439.txt
+
+http://185.241.7.183:8080/convert/1666593279
+http://185.241.7.183:8080/text/1666593279
 
 
-http://localhost:3000/promise/1666243161.pdf
-
-http://localhost:3000/responsetext/1666684015643.txt
+http://localhost:3000/convert/123456
+http://localhost:3000/text/123456
 
 
 sudo lsof -i :3000
