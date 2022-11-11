@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { AppService } from './app.service';
 const { Poppler } = require("node-poppler");
 const fs = require('fs');
+const https = require('https');
 
 @Controller()
 export class AppController {
@@ -11,6 +12,26 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('cher')
+  cher(): string {
+    const u = 'https://en.wikipedia.org/wiki/Cher';
+
+    const req = https.get(u, (res) => {
+      let download = fs.createWriteStream("cher.txt");
+      res.pipe(download);
+
+      res.on("end", () => {
+        console.log('finished');
+      })
+
+    });
+
+    
+
+    req.end();
+    return 'cher';
   }
 
   @Get('test2')
