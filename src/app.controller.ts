@@ -18,37 +18,14 @@ export class AppController {
     return 'This Is The New Test';
   }
 
-  @Get('pdf/:url')
-  promisePdf(@Param('url') url: string): Promise<any> {
-    url = 'https://lightquote.net/app/trans-quote/uploads/' + url;
-    
-    const https = require("https");
-    const unixts = String(Date.now());
-    const fileName = "uploads" + "\\" + String(unixts) + ".pdf";
-
-    let idx = fileName.indexOf(".");
-    const destFIneName = fileName.substring(0,idx) + ".txt";
-    const file = fs.createWriteStream(fileName);
-
-    const myPromise = new Promise((resolve, reject) => {
-      https.get(url, response => {
-        var stream = response.pipe(file);
-        stream.on("finish", function() {
-          pdfToText(fileName, destFIneName);
-          resolve(unixts + ".txt");
-        });
-      });
-
-    });
-          
-    return myPromise.then((data)=>{
-      // success
-      return data;
-    }, () =>{
-      //fail
-      console.log('pdf-to-text promise failed')
-    })
-
+  @Get('convert/:fileName')
+  convert(@Param('fileName') fileName: string): any {
+    let url = 'path-to-uploads/' + fileName;
+    let fname = 'tmp/shiran.pdf';
+    let idx = fname.indexOf(".");
+    const destFileName = fname.substring(0, idx) + ".txt";
+    pdfToText(fname, destFileName);
+    return 'Done';
   }
 
   @Get('text/:fileName')
