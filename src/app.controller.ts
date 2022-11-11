@@ -21,12 +21,12 @@ export class AppController {
   @Get('convert/:fileName')
   convert(@Param('fileName') fileName: string): any {
     const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
-    const pdf = `tmp/${fileName}.pdf`;
+    // const localPdf = `tmp/${fileName}.pdf`;
     const targetTextFile = `uploads/${fileName}.txt`;
     let res = 0;
-    if (fs.existsSync(pdf)) {
+    if (fs.existsSync(serverPdfLocation)) {
       res = 1;
-      pdfToText(pdf, targetTextFile);
+      pdfToText(serverPdfLocation, targetTextFile);
     } else {
       res = 0;
     }
