@@ -19,7 +19,7 @@ export class AppController {
   }
 
   @Get('convert/:fileName')
-  convert(@Param('fileName') fileName: string): any {
+  async convert(@Param('fileName') fileName: string): Promise<number> {
     const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
     const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
     // const serverPdfLocation = `tmp/${fileName}.pdf`;
@@ -28,7 +28,7 @@ export class AppController {
     let res = 0;
     if (fs.existsSync(serverPdfLocation)) {
       res = 1;
-      convertToText(serverPdfLocation, targetTextFile);
+      await convertToText(serverPdfLocation, targetTextFile);
     } else {
       res = 0;
     }
