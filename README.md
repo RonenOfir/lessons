@@ -31,8 +31,8 @@ http://localhost:3000/text/123456
 
 sudo lsof -i :3000
 
-http://localhost:3000/pdf/1666243161.pdf
-http://localhost:3000/text/1667142974596.txt 
+http://localhost:3000/convert/1666243161
+http://localhost:3000/text/1667142974596
 
 
 

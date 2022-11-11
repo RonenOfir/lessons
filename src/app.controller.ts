@@ -22,7 +22,8 @@ export class AppController {
   convert(@Param('fileName') fileName: string): any {
     const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
     // const localPdf = `tmp/${fileName}.pdf`;
-    const targetTextFile = `uploads/${fileName}.txt`;
+    // const targetTextFile = `uploads/${fileName}.txt`;
+    const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
     let res = 0;
     if (fs.existsSync(serverPdfLocation)) {
       res = 1;
