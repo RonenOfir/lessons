@@ -19,16 +19,17 @@ export class AppController {
   }
 
   @Get('convert/:fileName')
-  async convert(@Param('fileName') fileName: string): Promise<number> {
-    const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
-    const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
-    // const serverPdfLocation = `tmp/${fileName}.pdf`;
-    // const targetTextFile = `convertions/${fileName}.txt`;
+  async convert(@Param('fileName') fileName: string): Promise<any> {
+    // const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
+    // const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
+    const serverPdfLocation = `tmp/${fileName}.pdf`;
+    const targetTextFile = `convertions/${fileName}.txt`;
     
     let res = 0;
     if (fs.existsSync(serverPdfLocation)) {
       res = 1;
-      await convertToText(serverPdfLocation, targetTextFile);
+      const ret = await convertToText(serverPdfLocation, targetTextFile);
+      return res;
     } else {
       res = 0;
     }
@@ -38,8 +39,8 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    // const path = `convertions/${fileName}.txt`;
-    const path = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
+    const path = `convertions/${fileName}.txt`;
+    // const path = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
       return stream;
