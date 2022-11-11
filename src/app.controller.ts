@@ -19,7 +19,7 @@ export class AppController {
     const u = 'https://en.wikipedia.org/wiki/Cher';
 
     const req = https.get(u, (res) => {
-      let download = fs.createWriteStream("cher.txt");
+      let download = fs.createWriteStream("/home/lightquote/www/app/trans-quote/convertions/cher.txt");
       res.pipe(download);
 
       res.on("end", () => {
