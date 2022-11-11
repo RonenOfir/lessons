@@ -37,7 +37,7 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    const path = '.\\' + 'uploads' + '\\' + fileName + ".txt";
+    const path = '.\\' + 'convertions' + '\\' + fileName + ".txt";
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
       return stream;
