@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 const { Poppler } = require("node-poppler");
 const fs = require('fs');
 const https = require('https');
+const pdfUtil = require('pdf-to-text');
+const pdf_path = "tmp/123456.pdf";
 
 @Controller()
 export class AppController {
@@ -12,6 +14,21 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('pdftotxt')
+  pdfToTxt(): number{
+    pdfUtil.pdfToText(pdf_path, function(err, data) {
+      if (err) throw(err);
+           fs.writeFile('convertions/last.txt', data, function (err) {
+        if (err) return console.log(err)
+        console.log('ok');
+      });
+      
+
+    });
+    
+    return 1;
   }
 
   @Get('cher')
@@ -79,6 +96,6 @@ async function convertToText(file: string, targetTextFile: string){
     lastPageToConvert: 1,
   };
   
-  const res = await poppler.pdfToText(file, targetTextFile, options);
+  const res = await poppler.pdfToText(file, options);
   console.log('pdftoText Done');
 }
