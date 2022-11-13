@@ -20,6 +20,10 @@ export class AppController {
     // const text_path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
     const pdf_path = `tmp/${fileName}.pdf`;
     const text_path = `conversions/${fileName}.txt`;
+
+    if (!fs.existsSync(pdf_path)) {
+      return 0;
+    }
     
     pdfUtil.pdfToText(pdf_path, function(err, data) {
       if (err) throw(err);
