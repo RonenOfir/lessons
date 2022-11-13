@@ -81,8 +81,8 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    const path = `conversions/${fileName}.txt`;
-    // const path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
+    // const path = `conversions/${fileName}.txt`;
+    const path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
       return stream;
