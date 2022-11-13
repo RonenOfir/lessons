@@ -16,10 +16,10 @@ export class AppController {
 
   @Get('convert/:fileName')
   pdfToTxt(@Param('fileName') fileName: string): number {
-     // const pdf_path = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
-    // const text_path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
-    const pdf_path = `tmp/${fileName}.pdf`;
-    const text_path = `conversions/${fileName}.txt`;
+    const pdf_path = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
+    const text_path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
+    // const pdf_path = `tmp/${fileName}.pdf`;
+    // const text_path = `conversions/${fileName}.txt`;
 
     if (!fs.existsSync(pdf_path)) {
       return 0;

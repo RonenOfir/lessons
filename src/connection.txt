@@ -1,3 +1,4 @@
+
 username: 'lightquote_nest_user',
 password: 'Smile!123',
 database: 'lightquote_nest',
