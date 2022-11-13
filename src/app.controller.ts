@@ -5,8 +5,6 @@ const { Poppler } = require("node-poppler");
 const fs = require('fs');
 const https = require('https');
 const pdfUtil = require('pdf-to-text');
-const pdf_path = "tmp/123456.pdf";
-
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -16,15 +14,18 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('pdftotxt')
-  pdfToTxt(): number{
+  @Get('convert/:fileName')
+  pdfToTxt(@Param('fileName') fileName: string): number {
+     // const pdf_path = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
+    // const text_path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
+    const pdf_path = `tmp/${fileName}.pdf`;
+    const text_path = `conversions/${fileName}.txt`;
     pdfUtil.pdfToText(pdf_path, function(err, data) {
       if (err) throw(err);
-           fs.writeFile('convertions/last.txt', data, function (err) {
-        if (err) return console.log(err)
-        console.log('ok');
-      });
-      
+      fs.writeFile(text_path, data, function (err) {
+            if (err) return 0;
+            console.log('ok');
+    });
 
     });
     
@@ -36,7 +37,7 @@ export class AppController {
     const u = 'https://en.wikipedia.org/wiki/Cher';
 
     const req = https.get(u, (res) => {
-      let download = fs.createWriteStream("/home/lightquote/www/app/trans-quote/convertions/cher.txt");
+      let download = fs.createWriteStream("/home/lightquote/www/app/trans-quote/conversions/cher.txt");
       res.pipe(download);
 
       res.on("end", () => {
@@ -45,23 +46,21 @@ export class AppController {
 
     });
 
-    
-
     req.end();
     return 'cher';
   }
 
-  @Get('test2')
+  @Get('test')
   getTest(): string {
-    return 'This Is The New Test2';
+    return 'This Is The New Test...';
   }
 
-  @Get('convert/:fileName')
+  @Get('convert-old/:fileName')
   async convert(@Param('fileName') fileName: string): Promise<any> {
     // const serverPdfLocation = `/home/lightquote/www/app/trans-quote/uploads/${fileName}.pdf`;
-    // const targetTextFile = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
+    // const targetTextFile = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
     const serverPdfLocation = `tmp/${fileName}.pdf`;
-    const targetTextFile = `convertions/${fileName}.txt`;
+    const targetTextFile = `conversions/${fileName}.txt`;
     
     let res = 0;
     if (fs.existsSync(serverPdfLocation)) {
@@ -77,8 +76,8 @@ export class AppController {
 
   @Get('text/:fileName')
   getTextFromFile(@Param('fileName') fileName: string): string {
-    const path = `convertions/${fileName}.txt`;
-    // const path = `/home/lightquote/www/app/trans-quote/convertions/${fileName}.txt`;
+    const path = `conversions/${fileName}.txt`;
+    // const path = `/home/lightquote/www/app/trans-quote/conversions/${fileName}.txt`;
     if (fs.existsSync(path)) {
       let stream = fs.readFileSync(path, "UTF-8");
       return stream;
